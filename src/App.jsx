@@ -14,7 +14,6 @@ function SplashScreen({ onDone }) {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // Start fade-out at 4.2s, fully done at 5s
     const fadeTimer = setTimeout(() => setFadeOut(true), 4200);
     const doneTimer = setTimeout(() => onDone(), 5000);
     return () => {
@@ -40,7 +39,6 @@ function SplashScreen({ onDone }) {
         pointerEvents: fadeOut ? "none" : "all",
       }}
     >
-      {/* Logo */}
       <img
         src="/media/SALON MASTERS LOGO.png"
         alt="Salon Masters"
@@ -51,7 +49,6 @@ function SplashScreen({ onDone }) {
         }}
       />
 
-      {/* Animated progress bar */}
       <div
         style={{
           width: "min(220px, 55vw)",
@@ -71,7 +68,6 @@ function SplashScreen({ onDone }) {
         />
       </div>
 
-      {/* Tagline */}
       <p
         style={{
           color: "#7a9e96",
@@ -110,13 +106,15 @@ function App() {
 
   const handleSplashDone = () => {
     setShowSplash(false);
-    // Slight delay so content fades in after splash fully gone
     setTimeout(() => setContentVisible(true), 80);
   };
 
   return (
     <>
       {showSplash && <SplashScreen onDone={handleSplashDone} />}
+
+      {/* Navbar outside animated div so position:fixed works correctly */}
+      <Navbar setPage={setPage} currentPage={page} />
 
       <div
         style={{
@@ -125,30 +123,31 @@ function App() {
           transition: "opacity 0.7s ease, transform 0.7s ease",
         }}
       >
-        <Navbar setPage={setPage} currentPage={page} />
+        {/* No padding on home so Hero sits behind transparent navbar */}
+        <div className={page === 'home' ? '' : 'pt-20 sm:pt-24 lg:pt-28'}>
+          {page === "home" && (
+            <>
+              <Hero />
+              <AboutUs />
+              <Whychooseus />
+              <Whatwedo />
+              <Services />
+              <Packages />
+              <Portfolio />
+              <ContactUs />
+            </>
+          )}
 
-        {page === "home" && (
-          <>
-            <Hero />
-            <AboutUs />
-            <Whychooseus />
-            <Whatwedo />
-            <Services />
-            <Packages />
-            <Portfolio />
-            <ContactUs />
-          </>
-        )}
-
-        {page !== "home" && (
-          <div className="pt-20 sm:pt-24 lg:pt-28">
-            {page === "about"     && <AboutUs />}
-            {page === "services"  && <Services />}
-            {page === "packages"  && <Packages />}
-            {page === "portfolio" && <Portfolio />}
-            {page === "contact"   && <ContactUs />}
-          </div>
-        )}
+          {page !== "home" && (
+            <>
+              {page === "about"     && <AboutUs />}
+              {page === "services"  && <Services />}
+              {page === "packages"  && <Packages />}
+              {page === "portfolio" && <Portfolio />}
+              {page === "contact"   && <ContactUs />}
+            </>
+          )}
+        </div>
 
         <Footer setPage={setPage} />
       </div>

@@ -10,8 +10,8 @@ const Navbar = ({ setPage, currentPage }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Reset scroll state when page changes
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
     setIsScrolled(false);
     setIsMobileMenuOpen(false);
   }, [currentPage]);
@@ -24,7 +24,6 @@ const Navbar = ({ setPage, currentPage }) => {
     { name: 'Contact',  href: '#contact',  id: 'contact' },
   ];
 
-  // Transparent only on home page when not scrolled
   const isTransparent = currentPage === 'home' && !isScrolled;
 
   const navBg = isTransparent
@@ -69,13 +68,10 @@ const Navbar = ({ setPage, currentPage }) => {
                   alt="Salon Masters Logo"
                   className={`transition-all duration-500 ${
                     isScrolled
-                      ? 'h-12 sm:h-14 md:h-16 lg:h-14 xl:h-16'
-                      : 'h-16 sm:h-20 md:h-24 lg:h-20 xl:h-24'
+                      ? 'h-14 sm:h-16 md:h-18 lg:h-16 xl:h-18'
+                      : 'h-20 sm:h-24 md:h-28 lg:h-24 xl:h-28'
                   }`}
-                  style={{
-                    filter: isTransparent ? 'brightness(1.2)' : 'none',
-                    objectFit: 'contain',
-                  }}
+                  style={{ objectFit: 'contain' }}
                 />
               </a>
             </div>
@@ -123,7 +119,6 @@ const Navbar = ({ setPage, currentPage }) => {
               src="/media/SALON MASTERS LOGO.png"
               alt="Salon Masters Logo"
               className="h-20 sm:h-24 md:h-28 object-contain"
-              style={{ filter: 'brightness(1.2)' }}
             />
           </a>
 
