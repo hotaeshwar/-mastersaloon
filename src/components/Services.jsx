@@ -269,7 +269,7 @@ export default function Services() {
       {/* ── Header ── */}
       <div className="relative text-center mb-12 sm:mb-16 px-6">
         <span
-          className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-[clamp(3rem,9vw,7rem)] font-serif italic font-bold text-gray-100 select-none pointer-events-none leading-none whitespace-nowrap"
+          className="hidden sm:block absolute inset-x-0 top-1/2 -translate-y-1/2 text-[clamp(3rem,9vw,7rem)] font-serif italic font-bold text-gray-100 select-none pointer-events-none leading-none whitespace-nowrap"
           aria-hidden="true"
         >
           Services
